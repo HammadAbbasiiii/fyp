@@ -1,4 +1,3 @@
 wordnet
 punkt
 stopwords
-PorterStemmer
