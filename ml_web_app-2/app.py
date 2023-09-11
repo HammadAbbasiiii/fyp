@@ -24,8 +24,8 @@ with open('tokenizer.json', 'r', encoding='utf-8') as f:
     tokenizer_config = f.read()
     tokenizer = tokenizer_from_json(tokenizer_config)
 
-# with open('maxlen.txt', 'r') as f:
-#     maxlen = int(f.read())
+with open('maxlen.txt', 'r') as f:
+    maxlen = int(f.read())
 
 # Function for stemming (You can use it when you uncomment the code above)
 
