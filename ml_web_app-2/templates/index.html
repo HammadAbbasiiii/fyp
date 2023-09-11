@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Classifier</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Your existing HTML content -->
+        <h1>News Classifier</h1>
+        <form id="classificationForm">
+            <div class="form-group">
+                <label for="newsInput">Enter News:</label>
+                <textarea class="form-control" id="newsInput" name="newsText" placeholder="Write or paste news here"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Classify</button>
+        </form>
+        <div id="result" class="alert d-none"></div>
+    </div>
+
+    <script>
+        const classificationForm = document.getElementById('classificationForm');
+        const result = document.getElementById('result');
+
+        classificationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(classificationForm);
+            const newsText = formData.get('newsText').trim(); // Trim leading and trailing spaces
+
+            if (newsText === '') {
+                // Show a Bootstrap-styled warning message
+                result.textContent = 'Please enter news text.';
+                result.classList.remove('alert-success'); // Remove success class
+                result.classList.add('alert-warning');   // Add warning class
+                result.classList.remove('d-none');        // Show the message div
+                return; // Exit the function, do not proceed with the submission
+            }
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: JSON.stringify({ text: newsText }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+
+                if (!isNaN(data.prediction)) {
+                    const predictionValue = parseFloat(data.prediction);
+                    const predictionText = predictionValue > 0.5 ? 'Real' : 'Fake';
+                    result.textContent = `Prediction: ${predictionText}`;
+                    // result.textContent = `Prediction: ${predictionText} (${predictionValue.toFixed(2)})`;
+                    result.classList.remove('alert-warning'); // Remove warning class
+                    result.classList.add('alert-success');     // Add success class
+                    result.classList.remove('d-none');         // Show the message div
+                } else {
+                    result.textContent = 'Prediction not available';
+                    result.classList.remove('alert-success'); // Remove success class
+                    result.classList.add('alert-warning');     // Add warning class
+                    result.classList.remove('d-none');         // Show the message div
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Classifier</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            resize: none;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            font-weight: bold;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>News Classifier</h1>
+        <form id="classificationForm">
+            <div class="form-group">
+                <label for="newsInput">Enter News:</label>
+                <textarea class="form-control" id="newsInput" name="newsText" placeholder="Write or paste news here"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Classify</button>
+        </form>
+        <div id="result" class="alert d-none"></div>
+    </div>
+
+    <script>
+        const classificationForm = document.getElementById('classificationForm');
+        const result = document.getElementById('result');
+
+        classificationForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const formData = new FormData(classificationForm);
+            const newsText = formData.get('newsText').trim(); // Trim leading and trailing spaces
+
+            if (newsText === '') {
+                // Show a Bootstrap-styled warning message
+                result.textContent = 'Please enter news text.';
+                result.classList.remove('alert-success'); // Remove success class
+                result.classList.add('alert-warning');   // Add warning class
+                result.classList.remove('d-none');        // Show the message div
+                return; // Exit the function, do not proceed with the submission
+            }
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: JSON.stringify({ text: newsText }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+
+                if (!isNaN(data.prediction)) {
+                    const predictionValue = parseFloat(data.prediction);
+                    const predictionText = predictionValue > 0.5 ? 'Real' : 'Fake';
+                    result.textContent = `Prediction: ${predictionText} (${predictionValue.toFixed(2)})`;
+                    result.classList.remove('alert-warning'); // Remove warning class
+                    result.classList.add('alert-success');     // Add success class
+                    result.classList.remove('d-none');         // Show the message div
+                } else {
+                    result.textContent = 'Prediction not available';
+                    result.classList.remove('alert-success'); // Remove success class
+                    result.classList.add('alert-warning');     // Add warning class
+                    result.classList.remove('d-none');         // Show the message div
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html> -->
