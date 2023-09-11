@@ -6,7 +6,7 @@ from keras.preprocessing.text import tokenizer_from_json
 from keras.models import load_model
 # from nltk.corpus import stopwords
 # from nltk.stem import PorterStemmer
-#from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
@@ -16,9 +16,9 @@ app = Flask(__name__)
 
 # port_stem = PorterStemmer()
 # tfidf_vect = joblib.load('tfidf_vectorizer.pkl')
-# lsvc = joblib.load('linear_svc_model.pkl')
-# lstm_model = load_model('lstm_model.h5')
-# ensemble_model = load_model('ensemble_model.h5')
+lsvc = joblib.load('linear_svc_model.pkl')
+lstm_model = load_model('lstm_model.h5')
+ensemble_model = load_model('ensemble_model.h5')
 
 # with open('tokenizer.json', 'r', encoding='utf-8') as f:
 #     tokenizer_config = f.read()
