@@ -14,10 +14,10 @@ app = Flask(__name__)
 # (Replace these with your actual model paths and imports)
 
 port_stem = PorterStemmer()
-tfidf_vect = joblib.load('tfidf_vectorizer.pkl')
-lsvc = joblib.load('linear_svc_model.pkl')
+# tfidf_vect = joblib.load('tfidf_vectorizer.pkl')
+# lsvc = joblib.load('linear_svc_model.pkl')
 lstm_model = load_model('lstm_model.h5')
-ensemble_model = load_model('ensemble_model.h5')
+# ensemble_model = load_model('ensemble_model.h5')
 
 # with open('tokenizer.json', 'r', encoding='utf-8') as f:
 #     tokenizer_config = f.read()
