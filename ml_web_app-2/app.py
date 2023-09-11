@@ -4,8 +4,8 @@ import numpy as np
 from keras.utils import pad_sequences
 from keras.preprocessing.text import tokenizer_from_json
 from keras.models import load_model
-# from nltk.corpus import stopwords
-# from nltk.stem import PorterStemmer
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from flask import Flask, request, jsonify, render_template
 
