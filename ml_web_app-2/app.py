@@ -40,65 +40,65 @@ def stemming(content):
 def index():
     return render_template('index.html')
 
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#     try:
-#         # Get the input data from the request
-#         data = request.json
-#         text_data = data['text']
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # Get the input data from the request
+        data = request.json
+        text_data = data['text']
         
-#         # Preprocess the new text data (You can uncomment this when you have your preprocessing code)
-#         text_data = stemming(text_data)
-#         text_data_tfidf = tfidf_vect.transform([text_data])
+        # Preprocess the new text data (You can uncomment this when you have your preprocessing code)
+        text_data = stemming(text_data)
+        text_data_tfidf = tfidf_vect.transform([text_data])
         
-#         # Predict using LinearSVC (Uncomment this when you have your model)
-#         lsvc_pred = lsvc.predict(text_data_tfidf)
-#         # print(f"lsvcValue is: {lsvc_pred}")
-#         # Tokenize and pad the input data for LSTM model (Uncomment this when you have your model)
-#         text_data_seq = tokenizer.texts_to_sequences([text_data])
-#         text_data_pad = pad_sequences(text_data_seq, padding='post', maxlen=maxlen)
+        # Predict using LinearSVC (Uncomment this when you have your model)
+        lsvc_pred = lsvc.predict(text_data_tfidf)
+        # print(f"lsvcValue is: {lsvc_pred}")
+        # Tokenize and pad the input data for LSTM model (Uncomment this when you have your model)
+        text_data_seq = tokenizer.texts_to_sequences([text_data])
+        text_data_pad = pad_sequences(text_data_seq, padding='post', maxlen=maxlen)
 
-#         # Predict using LSTM model (Uncomment this when you have your model)
-#         lstm_pred = lstm_model.predict(text_data_pad)
+        # Predict using LSTM model (Uncomment this when you have your model)
+        lstm_pred = lstm_model.predict(text_data_pad)
         
-#         # Convert predictions to the correct data type (float32)
-#         lsvc_pred = lsvc_pred.astype('float32')
-
-        
-#         lstm_pred = lstm_pred.astype('float32')
+        # Convert predictions to the correct data type (float32)
+        lsvc_pred = lsvc_pred.astype('float32')
 
         
-
-#         # Reshape and stack the predictions horizontally (Uncomment this when you have your model)
-#         ensemble_input = np.hstack([lsvc_pred.reshape(-1, 1), lstm_pred.reshape(-1, 1)])
+        lstm_pred = lstm_pred.astype('float32')
 
         
 
-#         # Predict using Ensemble model (Uncomment this when you have your model)
-#         ensemble_pred = ensemble_model.predict(ensemble_input)
-
-#         # print(f"ensemble value is: {ensemble_pred}")
-
-#         # Determine the result based on your threshold (Uncomment this when you have your model)
-#         prediction_value = ensemble_pred[0][0]
-        
-        
-
-#         # print(f"Prediction Value is: {prediction_value}")
-
-#         # Convert prediction to a JSON serializable format (float or int)
-#         prediction_value = float(ensemble_pred[0][0])  # Convert to float
-
-#         # Create a JSON response
-#         result = {"prediction": prediction_value}
-        
-#         # Return the JSON response
-#         return jsonify(result)
+        # Reshape and stack the predictions horizontally (Uncomment this when you have your model)
+        ensemble_input = np.hstack([lsvc_pred.reshape(-1, 1), lstm_pred.reshape(-1, 1)])
 
         
 
-#     except Exception as e:
-#         return jsonify({"error": str(e)})
+        # Predict using Ensemble model (Uncomment this when you have your model)
+        ensemble_pred = ensemble_model.predict(ensemble_input)
+
+        # print(f"ensemble value is: {ensemble_pred}")
+
+        # Determine the result based on your threshold (Uncomment this when you have your model)
+        prediction_value = ensemble_pred[0][0]
+        
+        
+
+        # print(f"Prediction Value is: {prediction_value}")
+
+        # Convert prediction to a JSON serializable format (float or int)
+        prediction_value = float(ensemble_pred[0][0])  # Convert to float
+
+        # Create a JSON response
+        result = {"prediction": prediction_value}
+        
+        # Return the JSON response
+        return jsonify(result)
+
+        
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 if __name__ == '__main__':
     app.run(debug=True)
