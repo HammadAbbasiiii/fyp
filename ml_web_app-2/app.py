@@ -20,9 +20,9 @@ lsvc = joblib.load('linear_svc_model.pkl')
 lstm_model = load_model('lstm_model.h5')
 ensemble_model = load_model('ensemble_model.h5')
 
-# with open('tokenizer.json', 'r', encoding='utf-8') as f:
-#     tokenizer_config = f.read()
-#     tokenizer = tokenizer_from_json(tokenizer_config)
+with open('tokenizer.json', 'r', encoding='utf-8') as f:
+    tokenizer_config = f.read()
+    tokenizer = tokenizer_from_json(tokenizer_config)
 
 # with open('maxlen.txt', 'r') as f:
 #     maxlen = int(f.read())
