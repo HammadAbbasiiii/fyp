@@ -4,9 +4,9 @@ import numpy as np
 from keras.utils import pad_sequences
 from keras.preprocessing.text import tokenizer_from_json
 from keras.models import load_model
-from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
-from sklearn.feature_extraction.text import TfidfVectorizer
+# from nltk.corpus import stopwords
+# from nltk.stem import PorterStemmer
+#from sklearn.feature_extraction.text import TfidfVectorizer
 from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
@@ -20,22 +20,22 @@ app = Flask(__name__)
 # lstm_model = load_model('lstm_model.h5')
 # ensemble_model = load_model('ensemble_model.h5')
 
-with open('tokenizer.json', 'r', encoding='utf-8') as f:
-    tokenizer_config = f.read()
-    tokenizer = tokenizer_from_json(tokenizer_config)
+# with open('tokenizer.json', 'r', encoding='utf-8') as f:
+#     tokenizer_config = f.read()
+#     tokenizer = tokenizer_from_json(tokenizer_config)
 
-with open('maxlen.txt', 'r') as f:
-    maxlen = int(f.read())
+# with open('maxlen.txt', 'r') as f:
+#     maxlen = int(f.read())
 
-Function for stemming (You can use it when you uncomment the code above)
+# Function for stemming (You can use it when you uncomment the code above)
 
-def stemming(content):
-    con = re.sub('[^a-zA-Z]', ' ', content)
-    con = con.lower()
-    con = con.split()
-    con = [port_stem.stem(word) for word in con if not word in stopwords.words('english')]
-    con = ' '.join(con)
-    return con
+# def stemming(content):
+#     con = re.sub('[^a-zA-Z]', ' ', content)
+#     con = con.lower()
+#     con = con.split()
+#     con = [port_stem.stem(word) for word in con if not word in stopwords.words('english')]
+#     con = ' '.join(con)
+#     return con
 @app.route('/')
 def index():
     return render_template('index.html')
