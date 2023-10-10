@@ -1,62 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News Classifier</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <style>
-        
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
+      *{
+        font-family: 'Poppins', sans-serif;
+      }
+
+        .wrapper {
             display: flex;
-            align-items: center;
+        
+        }
+
+        .left-container {
+            background-color: black;
+            min-height: 100vh;
+            width: 30%;
+            color: white !important;
+        }
+
+        .right-container {
+            min-height: 100vh;
+            width: 70%;
+            display: flex;
             justify-content: center;
-            height: 100vh;
+            align-items: center;
+            flex-direction: column;
+            background-image: url('/static/fn1.jpg');
+            /* Update the path to your image */
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* Adjust to your preference */
+            background-position: center;
+            /* Adjust to your preference */
+
+
         }
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            padding: 20px;
-            max-width: 400px;
-            width: 100%;
+        #classificationForm {
+            background-color: white;
+            border-radius: 15px;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
+        .text-container{
+            background-color: white;
+            border-radius: 15px;
+            color: black;
         }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
+        #newsInput{
+            height: 200px !important;
         }
 
-        textarea {
-            width: 100%;
-            height: 100px;
-            resize: none;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
 
-        button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            width: 100%;
-        }
 
         button:hover {
             background-color: #0056b3;
@@ -66,24 +68,185 @@
             font-weight: bold;
             margin-top: 15px;
         }
-        
+
+        .menu-btn{
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 60px;
+            background-color: #0056b3;
+            color:white;
+
+        }
+
+        .menu-btn svg{
+            fill:white;
+            width: 50px;
+            height: 50px;
+        }
+
+        .read-more{
+            background-color: transparent;
+            border:2px solid blue;
+            color:black;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .read-more:hover{
+            background-color: transparent;
+            border:2px solid blue;
+            color:black;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .detail ul{
+            display: none;
+        }
+
+
+
+
+    
+    
+
+        @media screen and (max-width:768px) {
+            .right-container {
+            min-height: 100vh;
+            width: 100%;
+            }
+
+            .left-container {
+                width: 100%;
+                display: none;
+            }
+        }
+
+
+        @media screen and (min-width:768px) {
+            .menu-btn{
+display: none;
+            }
+
+
+
+
+
+        }
     </style>
 </head>
+
 <body>
-    <div class="container">
+  
+    <div class="container-fluid p-0 wrapper position-relative">
         <!-- Your existing HTML content -->
-        <h1>News Classifier</h1>
-        <form id="classificationForm">
-            <div class="form-group">
-                <label for="newsInput">Enter News:</label>
-                <textarea class="form-control" id="newsInput" name="newsText" placeholder="Write or paste news here"></textarea>
+        <button class="btn menu-btn position-absolute"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
+            <path d="M 0 7.5 L 0 12.5 L 50 12.5 L 50 7.5 L 0 7.5 z M 0 22.5 L 0 27.5 L 50 27.5 L 50 22.5 L 0 22.5 z M 0 37.5 L 0 42.5 L 50 42.5 L 50 37.5 L 0 37.5 z"></path>
+            </svg></button>
+
+        <div class="left-container px-2 py-5">
+            <div class="text-container p-3 my-5 my-md-3">
+                <div class="heading"> <h2>Limitations</h2></div>
+               <div class="detail">
+
+                <p>Identified limitations within our Fake News Detection platform:</p>
+                <ul>
+                    <li>The system is designed exclusively for processing textual data.</li>
+                    <li>It is optimized for English language content only.</li>
+                    <li>To ensure accurate analysis, the system requires a minimum input of 100 characters.</li>
+                </ul>
+
+
+               </div>
+               <div class="btn-contaier">
+                <a href="#" class="read-more">Read More</a>
+               </div>
+              
             </div>
-            <button type="submit" class="btn btn-primary">Classify</button>
-        </form>
-        <div id="result" class="alert d-none"></div>
+
+
+            <!-- 2 -->
+            <div class="text-container p-3 my-5 my-md-3">
+                <div class="heading"> <h2>Optimal Use Instructions</h2></div>
+               <div class="detail" >
+
+                <p>Guidelines to enhance your performance on the Fake News Detection platform:</p>
+                <ul>
+                    <li>Suggest users include relevant contextual information along with the news.</li>
+                    <li>Advise users to submit news articles in a single language.</li>
+                    <li>Remind them that the model's effectiveness is influenced by the quality and neutrality of the input data.</li>
+                </ul>
+
+
+               </div>
+               <div class="btn-contaier">
+            
+                <a href="#" class="read-more">Read More</a>
+               </div>
+              
+            </div>
+
+            <!-- end 2 -->
+
+
+            <!-- 3 -->
+            <div class="text-container p-3 my-5 my-md-3">
+                <div class="heading"> <h2>Cross-Verification Recommendations</h2></div>
+               <div class="detail">
+
+                <p>Cross-Verification Recommendations from diverse sources :</p>
+                <ul>
+                    <li>Use our tool to spot potential misinformation, but cross-verify from diverse reliable sources for a comprehensive and accurate understanding.</li>
+                </ul>
+
+
+               </div>
+               <div class="btn-contaier">
+                <a href="#" class="read-more">Read More</a>
+               </div>
+              
+            </div>
+
+
+            <!-- end 3 -->
+        </div>
+
+      
+
+
+        
+
+        <div class="right-container px-2 py-5">
+            <form id="classificationForm" class="py-4 px-4">
+                <h1>Fake News Detection</h1>
+                <div class="form-group">
+                    <label for="newsInput">Enter News:</label>
+                    <textarea class="form-control" id="newsInput" name="newsText"
+                        placeholder="Write or paste news here"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Classify</button>
+                <div id="result" class="alert d-none"></div>
+            </form>
+
+        </div>
+
     </div>
 
     <script>
+
+// button click to toggle
+
+$('.menu-btn').on('click', function() {
+    $('.left-container').toggle('fast');
+    $('.right-container').toggle('fast');
+});
+
+
         const classificationForm = document.getElementById('classificationForm');
         const result = document.getElementById('result');
 
@@ -101,6 +264,21 @@
                 result.classList.remove('d-none');        // Show the message div
                 return; // Exit the function, do not proceed with the submission
             }
+
+
+            if (newsText.length < 100) {
+    // Show a Bootstrap-styled warning message using jQuery
+    $('#result').text('Minimum text must be 100 characters');
+    $('#result').removeClass('alert-success').addClass('alert-warning').removeClass('d-none');
+    return; // Exit the function, do not proceed with the submission
+}
+
+
+
+
+
+            
+            
 
             try {
                 const response = await fetch('/predict', {
@@ -135,153 +313,49 @@
                 console.error('Error:', error);
             }
         });
+
+        // detail left container
+
+
+        // Function to toggle between truncated and full text
+
+        var textContainer = $('.text-container .detail').text();
+
+// Slice the first 10 characters from the text
+var slicedText = textContainer.slice(0, 10);
+
+// Select the .detail element and append the sliced text to it
+$('.detail').append(slicedText);
+
+//
+// Hide detail on body click
+$('body').click(function () {
+    $('.text-container .detail ul').hide();
+});
+
+// Show/hide detail on read-more click
+// Hide detail on body click
+$('body').click(function () {
+    $('.text-container .detail ul').hide();
+});
+
+// Show/hide detail on read-more click
+$('.read-more').click(function (event) {
+    event.stopPropagation(); // Prevent the body click event from triggering
+
+    // Hide all ul elements within details except the one within the clicked text-container
+    $('.text-container .detail ul').not($(this).closest('.text-container').find('.detail ul')).hide();
+
+    // Toggle the ul element within the clicked text-container
+    $(this).closest('.text-container').find('.detail ul').toggle();
+});
+
+
+
+           
+
     </script>
+
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-<!-- 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Classifier</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            padding: 20px;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        textarea {
-            width: 100%;
-            height: 100px;
-            resize: none;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        #result {
-            font-weight: bold;
-            margin-top: 15px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>News Classifier</h1>
-        <form id="classificationForm">
-            <div class="form-group">
-                <label for="newsInput">Enter News:</label>
-                <textarea class="form-control" id="newsInput" name="newsText" placeholder="Write or paste news here"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Classify</button>
-        </form>
-        <div id="result" class="alert d-none"></div>
-    </div>
-
-    <script>
-        const classificationForm = document.getElementById('classificationForm');
-        const result = document.getElementById('result');
-
-        classificationForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const formData = new FormData(classificationForm);
-            const newsText = formData.get('newsText').trim(); // Trim leading and trailing spaces
-
-            if (newsText === '') {
-                // Show a Bootstrap-styled warning message
-                result.textContent = 'Please enter news text.';
-                result.classList.remove('alert-success'); // Remove success class
-                result.classList.add('alert-warning');   // Add warning class
-                result.classList.remove('d-none');        // Show the message div
-                return; // Exit the function, do not proceed with the submission
-            }
-
-            try {
-                const response = await fetch('/predict', {
-                    method: 'POST',
-                    body: JSON.stringify({ text: newsText }),
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const data = await response.json();
-
-                if (!isNaN(data.prediction)) {
-                    const predictionValue = parseFloat(data.prediction);
-                    const predictionText = predictionValue > 0.5 ? 'Real' : 'Fake';
-                    result.textContent = `Prediction: ${predictionText} (${predictionValue.toFixed(2)})`;
-                    result.classList.remove('alert-warning'); // Remove warning class
-                    result.classList.add('alert-success');     // Add success class
-                    result.classList.remove('d-none');         // Show the message div
-                } else {
-                    result.textContent = 'Prediction not available';
-                    result.classList.remove('alert-success'); // Remove success class
-                    result.classList.add('alert-warning');     // Add warning class
-                    result.classList.remove('d-none');         // Show the message div
-                }
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        });
-    </script>
-</body>
-</html> -->
